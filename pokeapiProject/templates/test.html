@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <title>The Home Page</title>
     <h1>Home Page!</h1>
-    <h3>Hi {{ name }}, thanks for visiting the home page!</h3>
+    <h3>Hi, thanks for visiting the home page!</h3>
+    <h3>Here are the list of Pokemon from Gen 1</h3>
+    <form>
+        {% for i in name %}
+            <input type="checkbox" id="{{ i.pokemon_species.name }}" name="{{ i.pokemon_species.name }}" value="{{ i.pokemon_species.name }}">
+            <label for="{{ i.pokemon_species.name }}"> {{ i.pokemon_species.name }}</label><br><br>
+        {% endfor %}
+        <input  class="btn btn-primary" type="submit" value="Submit">
+    </form>
+        
 </head>
 <body>
 
