@@ -9,14 +9,20 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-    <h1>Pokemon Checklist</h1>
-    <h3>Generation 1 Pokemon</h3>
+    <h1 class="mt-5 mb-5 text-center">Pokemon Checklist</h1>
+    <h3 class="mb-5 text-center">Generation 1 Pokemon</h3>
     <form>
-        {% for i in name %}
-            <input type="checkbox" id="{{ i.pokemon_species.name }}" name="{{ i.pokemon_species.name }}" value="{{ i.pokemon_species.name }}">
-            <label for="{{ i.pokemon_species.name }}"> {{ i.pokemon_species.name }}</label><br><br>
-        {% endfor %}
-        <input  class="btn btn-primary" type="submit" value="Submit">
+        <div class="row">
+            {% for i in name %}
+                <div class="col-3 justify-content-center">
+                    <input type="checkbox" id="{{ i.pokemon_species.name }}" name="{{ i.pokemon_species.name }}" value="{{ i.pokemon_species.name }}">
+                    <label class="text-capitalize" for="{{ i.pokemon_species.name }}"> {{ i.pokemon_species.name }}</label><br><br>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <input  class="btn btn-primary" type="submit" value="Submit">
+        </div>
     </form>
 </body>
 </html>
