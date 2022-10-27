@@ -9,7 +9,7 @@ def index(request):
 
     context = {"name": x["pokemon_entries"]}
 
-    return render(request, 'test.html', context)
+    return render(request, 'index.html', context)
 
 
 def home(request):

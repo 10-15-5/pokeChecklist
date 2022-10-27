@@ -1,9 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>The Home Page</title>
-    <h1>Home Page!</h1>
+    <title>Pokemon Checkbox</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <h1>Home Page!</h1>        
+</head>
+<body>
     <h3>Hi, thanks for visiting the home page!</h3>
     <h3>Here are the list of Pokemon from Gen 1</h3>
     <form>
@@ -13,9 +17,5 @@
         {% endfor %}
         <input  class="btn btn-primary" type="submit" value="Submit">
     </form>
-        
-</head>
-<body>
-
 </body>
 </html>
