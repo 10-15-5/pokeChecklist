@@ -16,3 +16,5 @@ Computer Science project to display pokemon with a list of pokemon needed to cat
     `pip install -r requirements.txt`
 - Have django-sass watch files and recompile them as they change<br>
     `python manage.py sass static/scss/ static/css/ --watch`
+- Run server<br>
+    `python manage.py runserver`
