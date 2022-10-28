@@ -12,7 +12,7 @@
     <h1 class="mt-5 mb-5 text-center">Pokemon Checklist</h1>
     <h3 class="mb-5 text-center">Generation 1 Pokemon</h3>
     <form>
-        <div class="row">
+        <div class="row w-100">
             {% for i in name %}
                 <div class="col-3 justify-content-center">
                     <input type="checkbox" id="{{ i.pokemon_species.name }}" name="{{ i.pokemon_species.name }}" value="{{ i.pokemon_species.name }}">
