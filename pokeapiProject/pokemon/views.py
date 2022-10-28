@@ -1,13 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-import requests
+
+from pokeApi.requests import pokeApiRequests
 
 
 def index(request):
+    pokemon_type_list = []
 
-    x = requests.get('https://pokeapi.co/api/v2/pokedex/kanto').json()
+    pokemon_list = pokeApiRequests.get_pokemon_by_loc("kanto")
 
-    context = {"name": x["pokemon_entries"]}
+    # for i in pokemon_list:
+    #     type = pokeApiRequests.get_first_type_by_pokemon(i)
+    #     pokemon_type_list.append(type)
+    # print(pokemon_type_list)
+
+    context = {"pokemon": pokemon_list, "type":""}
 
     return render(request, 'index.html', context)
 

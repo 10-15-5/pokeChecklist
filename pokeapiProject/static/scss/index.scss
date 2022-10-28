@@ -1,3 +1,16 @@
 body{
     background-color: lightblue;
 }
+
+.poke-container{
+    border: solid 2px black;
+    border-radius: 8px;
+    margin-left: 5%;
+    margin-bottom: 10%;
+}
+
+.poke-checkbox{
+    height: 25px;
+    width: 25px;
+    border-radius: 5px;
+}

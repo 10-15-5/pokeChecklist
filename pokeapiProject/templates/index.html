@@ -10,18 +10,29 @@
 </head>
 <body>
     <h1 class="mt-5 mb-5 text-center">Pokemon Checklist</h1>
-    <h3 class="mb-5 text-center">Generation 1 Pokemon</h3>
+    <h3 class="mb-5 text-center">Gen 1 (Kanto)</h3>
     <form>
         <div class="row w-100">
-            {% for i in name %}
-                <div class="col-3 justify-content-center">
-                    <input type="checkbox" id="{{ i.pokemon_species.name }}" name="{{ i.pokemon_species.name }}" value="{{ i.pokemon_species.name }}">
-                    <label class="text-capitalize" for="{{ i.pokemon_species.name }}"> {{ i.pokemon_species.name }}</label><br><br>
+            {% for i in pokemon %}
+                <div class="col-md-3 justify-content-center">
+                    <div class="poke-container">
+                        <div class="row pt-2">
+                            <img style="width:150px;" class="mx-auto" src="../static/img/{{ i }}.webp">
+                        </div>
+                        <div class="row">
+                            <div class="col-4" align="center">
+                                <input class="poke-checkbox" type="checkbox" id="{{ i }}" name="{{ i }}" value="{{ i }}">
+                            </div>
+                            <div class="col-8" align="left">
+                                <label style="padding-left: 5%;" class="text-capitalize" for="{{ i }}"> {{ i }}</label><br><br>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {% endfor %}
         </div>
         <div class="text-center">
-            <input  class="btn btn-primary" type="submit" value="Submit">
+            <input  class="btn btn-lg btn-primary" type="submit" value="Submit">
         </div>
     </form>
 </body>
