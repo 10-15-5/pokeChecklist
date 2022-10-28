@@ -14,6 +14,8 @@ def index(request):
     #     pokemon_type_list.append(type)
     # print(pokemon_type_list)
 
+    # TODO: Add to db all the colours of each Pokemon for background images
+
     context = {"pokemon": pokemon_list, "type":""}
 
     return render(request, 'index.html', context)
