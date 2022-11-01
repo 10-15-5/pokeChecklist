@@ -9,7 +9,7 @@ class pokeApiRequests():
         x = requests.get('https://pokeapi.co/api/v2/pokedex/' + location).json()
 
         for i in x["pokemon_entries"]:
-            pokemon.append(i["pokemon_species"]["name"])
+            pokemon.append({"name":i["pokemon_species"]["name"]})
 
         return pokemon
 
