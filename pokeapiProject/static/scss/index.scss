@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 body{
     background-color: lightblue;
 }
@@ -14,3 +16,76 @@ body{
     width: 25px;
     border-radius: 5px;
 }
+
+.bg-color-grass {
+    background-color: $grass;
+}
+
+.bg-color-normal {
+    background-color: $normal;
+}
+
+.bg-color-fire {
+    background-color: $fire;
+}
+
+.bg-color-water {
+    background-color: $water;
+}
+
+.bg-color-electric {
+    background-color: $electric;
+}
+
+.bg-color-ice {
+    background-color: $ice;
+}
+
+.bg-color-fighting {
+    background-color: $fighting;
+}
+
+.bg-color-poison {
+    background-color: $poison;
+}
+
+.bg-color-ground {
+    background-color: $ground;
+}
+
+.bg-color-flying {
+    background-color: $flying;
+}
+
+.bg-color-psychic {
+    background-color: $psychic;
+}
+
+.bg-color-bug {
+    background-color: $bug;
+}
+
+.bg-color-rock {
+    background-color: $rock;
+}
+
+.bg-color-ghost {
+    background-color: $ghost;
+}
+
+.bg-color-dragon {
+    background-color: $dragon;
+}
+
+.bg-color-dark {
+    background-color: $dark;
+}
+
+.bg-color-steel {
+    background-color: $steel;
+}
+
+.bg-color-fairy {
+    background-color: $fairy;
+}
+
