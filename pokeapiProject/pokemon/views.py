@@ -1,22 +1,20 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from pokeApi.requests import pokeApiRequests
+from pokeApi.requests import pokeApiRequests, SearchPokemonColours
 
 
 def index(request):
-    pokemon_type_list = []
+    pokemon_colour_list = []
 
     pokemon_list = pokeApiRequests.get_pokemon_by_loc("kanto")
+    
+    colours = SearchPokemonColours().get_colours()
 
-    # for i in pokemon_list:
-    #     type = pokeApiRequests.get_first_type_by_pokemon(i)
-    #     pokemon_type_list.append(type)
-    # print(pokemon_type_list)
+    for i in colours:
+        pokemon_colour_list.append(i[0])
 
-    # TODO: Add to db all the colours of each Pokemon for background images
-
-    context = {"pokemon": pokemon_list, "type":""}
+    context = {"pokemon": pokemon_list, "type": pokemon_colour_list}
 
     return render(request, 'index.html', context)
 
