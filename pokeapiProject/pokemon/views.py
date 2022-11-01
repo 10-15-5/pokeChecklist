@@ -21,12 +21,17 @@ def index(request):
 
     context = {"details": pokemon_list}
 
+    # print(request.user.username)
+
     return render(request, 'index.html', context)
 
 
-def home(request):
-    context = {"name":"user"}
-    return render(request, 'test.html', context)
+def thanks(request):
+
+    pokemon_caught = request.POST.getlist('pokemon')
+
+    context = {"pokemon":pokemon_caught}
+    return render(request, 'thanks.html', context)
 
 
 def about(request):

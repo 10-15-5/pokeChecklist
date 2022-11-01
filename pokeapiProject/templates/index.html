@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pokemon Checkbox</title>   
+    <title>Pokemon Checklist</title>   
     <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
     <h1 class="mt-5 mb-5 text-center">Pokemon Checklist</h1>
     <h3 class="mb-5 text-center">Gen 1 (Kanto)</h3>
-    <form>
+    <form action = "/thank-you/" method = "post">
+        {% csrf_token %}
         <div class="row w-100">
             {% for i in details %}
                 <div class="col-md-3 justify-content-center">
@@ -21,7 +22,7 @@
                         </div>
                         <div class="row">
                             <div class="col-4" align="center">
-                                <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="{{ i.name }}" value="{{ i.name }}">
+                                <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}">
                             </div>
                             <div class="col-8" align="left">
                                 <label style="padding-left: 5%;" class="text-capitalize" for="{{ i.name }}"> {{ i.name }}</label><br><br>
