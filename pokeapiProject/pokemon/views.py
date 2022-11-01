@@ -11,10 +11,12 @@ def index(request):
     
     colours = SearchPokemonColours().get_colours()
 
+    count = 0
     for i in colours:
-        pokemon_colour_list.append(i[0])
+        pokemon_list[count]["colour"] = i[0]
+        count += 1
 
-    context = {"pokemon": pokemon_list, "type": pokemon_colour_list}
+    context = {"details": pokemon_list}
 
     return render(request, 'index.html', context)
 
