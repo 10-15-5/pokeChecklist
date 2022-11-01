@@ -1,4 +1,5 @@
 import requests
+import sqlite3
 
 
 class pokeApiRequests():
@@ -18,3 +19,39 @@ class pokeApiRequests():
         type = x["types"][0]["type"]["name"]
 
         return type
+
+
+class SearchPokemonColours:
+    def __init__(self, pokemon=None, colour=None):
+        self.pokemon = pokemon
+        self.colour = colour
+
+
+    def search_all(self):
+        db = sqlite3.connect("Pokemon.db")
+        cursor = db.cursor()
+        cursor.execute('''SELECT * FROM POKEMON_COLOURS''')
+        items = cursor.fetchall()
+        db.close()
+
+        return items
+
+
+    def get_colours(self):
+        db = sqlite3.connect("Pokemon.db")
+        cursor = db.cursor()
+        cursor.execute('''SELECT colour FROM POKEMON_COLOURS''')
+        results = cursor.fetchall()
+        db.close()
+
+        return results 
+
+
+    def get_colour_by_pokemon(self):
+        db = sqlite3.connect("Pokemon.db")
+        cursor = db.cursor()
+        cursor.execute('''SELECT colour FROM POKEMON_COLOURS WHERE pokemon = ? ''' , (self.pokemon,))
+        results = cursor.fetchone()
+        db.close()
+
+        return results
