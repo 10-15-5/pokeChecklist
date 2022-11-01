@@ -5,7 +5,6 @@ from pokeApi.requests import pokeApiRequests, SearchPokemonColors
 
 
 def index(request):
-    pokemon_colour_list = []
 
     pokemon_list = pokeApiRequests.get_pokemon_by_loc("kanto")
     
