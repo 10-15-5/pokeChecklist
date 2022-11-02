@@ -22,7 +22,11 @@
                         </div>
                         <div class="row">
                             <div class="col-4" align="center">
-                                <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}">
+                                {% if i.caught == "true" %}
+                                    <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}" checked>
+                                {% else %}
+                                    <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}">
+                                {% endif %}
                             </div>
                             <div class="col-8" align="left">
                                 <label style="padding-left: 5%;" class="text-capitalize" for="{{ i.name }}"> {{ i.name }}</label><br><br>
