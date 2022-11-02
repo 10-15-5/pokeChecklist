@@ -6,7 +6,7 @@ Computer Science project to display pokemon with a list of pokemon needed to cat
 
 - Clone Codebase
 - Create Virtual Environment in project dir<br>
-    `python3 -m venv .venv`
+    `python -m venv .venv`
 - Run virtual environment<br>
     - Windows<br>
     `.venv\Scripts\activate.bat`
