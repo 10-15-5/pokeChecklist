@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from pokeApi.requests import pokeApiRequests, SearchPokemonColors
+from pokeApi.requests import pokeApiRequests, SearchPokemonColors, DatabaseActions
 from django.contrib.auth.decorators import login_required
 
 
@@ -14,14 +14,26 @@ def index(request):
     
     colours = SearchPokemonColors().get_colors()
 
+    response = DatabaseActions.search_caught_pokemon(request.user.username)
+
     count = 0
-    for i in colours:
-        pokemon_list[count]["color"] = i[0]
-        count += 1
+    if type(response) is tuple:
+        for i in colours:
+            pokemon_list[count]["color"] = i[0]
+
+            if pokemon_list[count]["name"] in response[0]:
+                pokemon_list[count]["caught"] = "true"
+            else:
+                pokemon_list[count]["caught"] = "false"
+
+            count += 1
+    else:
+        for i in colours:
+            pokemon_list[count]["color"] = i[0]
+            pokemon_list[count]["caught"] = "false"
+            count += 1
 
     context = {"details": pokemon_list}
-
-    # print(request.user.username)
 
     return render(request, 'index.html', context)
 
@@ -29,6 +41,13 @@ def index(request):
 def thanks(request):
 
     pokemon_caught = request.POST.getlist('pokemon')
+
+    response = DatabaseActions.search_caught_pokemon(request.user.username)
+
+    if type(response) is tuple:
+        DatabaseActions.update_caught_pokemon(request.user.username, pokemon_caught)
+    else:
+        DatabaseActions.insert_caught_pokemon(request.user.username, pokemon_caught)
 
     context = {"pokemon":pokemon_caught}
     return render(request, 'thanks.html', context)

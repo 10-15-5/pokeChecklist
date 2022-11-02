@@ -55,3 +55,67 @@ class SearchPokemonColors:
         db.close()
 
         return results
+
+
+class DatabaseActions:
+
+    def create_table():
+        connection_obj = sqlite3.connect("Pokemon.db")
+        cursor_obj = connection_obj.cursor()
+        
+        cursor_obj.execute("DROP TABLE IF EXISTS CAUGHT_POKEMON")
+        
+        # Creating table
+        table = """ CREATE TABLE CAUGHT_POKEMON (
+                    Name CHAR(25) UNIQUE,
+                    Pokemon
+                ); """
+        
+        cursor_obj.execute(table)
+        
+        print("Table is Ready")
+        
+        connection_obj.close()
+
+    def insert_caught_pokemon(name,pokemon):
+        connection_obj = sqlite3.connect("Pokemon.db")
+        cursor_obj = connection_obj.cursor()
+
+        cursor_obj.execute('''INSERT INTO CAUGHT_POKEMON VALUES (?, ?)''', (name, str(pokemon)))
+
+        print("Data Inserted in the table: ")
+        data=cursor_obj.execute('''SELECT * FROM CAUGHT_POKEMON''')
+        for row in data:
+            print(row)
+
+        connection_obj.commit()
+        
+        connection_obj.close()
+
+    def update_caught_pokemon(name,pokemon):
+        connection_obj = sqlite3.connect("Pokemon.db")
+        cursor_obj = connection_obj.cursor()
+
+        cursor_obj.execute('''UPDATE CAUGHT_POKEMON SET Pokemon = ? WHERE Name = ?''', (str(pokemon), name ))
+
+        data=cursor_obj.execute('''SELECT * FROM CAUGHT_POKEMON''')
+        for row in data:
+            print(row)
+
+        connection_obj.commit()
+        
+        connection_obj.close()
+
+    
+    def search_caught_pokemon(name):
+        connection_obj = sqlite3.connect("Pokemon.db")
+        cursor_obj = connection_obj.cursor()
+
+        result = cursor_obj.execute("SELECT Pokemon FROM CAUGHT_POKEMON WHERE Name=?", (name,))
+
+        for row in result:
+            result = row
+
+        connection_obj.close()        
+
+        return result
