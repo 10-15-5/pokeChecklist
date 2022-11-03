@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pokemon Checklist</title>   
-    <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}  
+  
+{% block content %}  
     <h1 class="mt-5 mb-5 text-center">Pokemon Checklist</h1>
     <h3 class="mb-5 text-center">Gen 1 (Kanto)</h3>
     <form action = "/thank-you/" method = "post">
@@ -40,5 +32,4 @@
             <input  class="btn btn-lg btn-primary" type="submit" value="Submit">
         </div>
     </form>
-</body>
-</html>
+{% endblock content %} 
