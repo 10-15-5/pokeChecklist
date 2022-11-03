@@ -35,7 +35,7 @@ def index(request):
 
     context = {"details": pokemon_list}
 
-    return render(request, 'index.html', context)
+    return render(request, 'home.html', context)
 
 
 def thanks(request):
