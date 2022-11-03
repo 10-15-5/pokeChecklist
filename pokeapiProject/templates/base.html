@@ -9,7 +9,14 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
-    <h1>Hello There</h1>
+    <div class="header">
+        <a href="/" class="logo">Pokemon Checklist</a>
+        <div class="header-right">
+          <a href="/">Home</a>
+          <a href="#contact">Contact</a>
+          <a href="/thank-you">About</a>
+        </div>
+    </div>
     {% block content %}  
       
     {% endblock content %}  

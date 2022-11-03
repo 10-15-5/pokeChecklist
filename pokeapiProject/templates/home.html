@@ -1,8 +1,7 @@
 {% extends 'base.html' %}  
   
-{% block content %}  
-    <h1 class="mt-5 mb-5 text-center">Pokemon Checklist</h1>
-    <h3 class="mb-5 text-center">Gen 1 (Kanto)</h3>
+{% block content %}
+    <h3 class="mt-5 mb-5 text-center">Gen 1 (Kanto)</h3>
     <form action = "/thank-you/" method = "post">
         {% csrf_token %}
         <div class="row w-100">
