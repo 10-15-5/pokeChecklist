@@ -1,33 +1,131 @@
 {% extends 'base.html' %}  
   
 {% block content %}
-    <h3 class="mt-5 mb-5 text-center">Gen 1 (Kanto)</h3>
+    <h3 class="mt-5 mb-5 text-center">Tick off all the Pokemon you have caught</h3>
     <form action = "/thank-you/" method = "post">
         {% csrf_token %}
-        <div class="row w-100">
-            {% for i in details %}
-                <div class="col-md-3 justify-content-center">
-                    <div class="poke-container bg-color-{{ i.color }}">
-                        <div class="row pt-2">
-                            <img style="width:150px;" class="mx-auto" src="../static/img/{{ i.name }}.webp">
-                        </div>
-                        <div class="row">
-                            <div class="col-4" align="center">
-                                {% if i.caught == "true" %}
-                                    <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}" checked>
-                                {% else %}
-                                    <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}">
-                                {% endif %}
+
+        <div class="accordion" id="accordionExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Gen 1 - Kanto
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row w-100">
+                        {% for i in details %}
+                            <div class="col-md-3 justify-content-center">
+                                <div class="poke-container bg-color-{{ i.color }}">
+                                    <div class="row pt-2">
+                                        <img style="width:150px;" class="mx-auto" src="../static/img/{{ i.name }}.webp">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4" align="center">
+                                            {% if i.caught == "true" %}
+                                                <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}" checked>
+                                            {% else %}
+                                                <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}">
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-8" align="left">
+                                            <label style="padding-left: 5%;" class="text-capitalize" for="{{ i.name }}"> {{ i.name }}</label><br><br>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-8" align="left">
-                                <label style="padding-left: 5%;" class="text-capitalize" for="{{ i.name }}"> {{ i.name }}</label><br><br>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-        <div class="text-center">
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed disabled" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Gen 2 - Johto (Coming Soon)
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Pokemon Coming Soon
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Gen 3 - Hoenn (Coming Soon)
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Pokemon Coming Soon
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Gen 4 - Sinnoh (Coming Soon)
+                  </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    Pokemon Coming Soon
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    Gen 5 - Unova (Coming Soon)
+                  </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    Pokemon Coming Soon
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSix">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    Gen 6 - Kalos (Coming Soon)
+                  </button>
+                </h2>
+                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    Pokemon Coming Soon
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSeven">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    Gen 7 - Alola (Coming Soon)
+                  </button>
+                </h2>
+                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    Pokemon Coming Soon
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingEight">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                    Gen 8 - Galar (Coming Soon)
+                  </button>
+                </h2>
+                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    Pokemon Coming Soon
+                  </div>
+                </div>
+              </div>
+          </div>
+        <div class="mt-5 text-center">
             <input  class="btn btn-lg btn-primary" type="submit" value="Submit">
         </div>
     </form>
