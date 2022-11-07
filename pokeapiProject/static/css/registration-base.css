@@ -14,15 +14,11 @@ body {
   height: 100%;
 }
 
-#id_username, #id_password {
+#id_username, #id_password, #id_password1, #id_password2 {
   border-radius: 6px;
   border: 2px solid;
 }
 
 #id_password {
   margin-left: 25px;
-}
-
-#id_username {
-  margin-left: 20px;
 }

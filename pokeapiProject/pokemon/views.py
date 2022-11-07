@@ -1,11 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from pokeApi.requests import pokeApiRequests, SearchPokemonColors, DatabaseActions
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+
+from .forms import SignUpForm
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/signup/')
 
 
 def index(request):
@@ -55,3 +59,23 @@ def thanks(request):
 
 def about(request):
     return render(request, 'test-about.html')
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  
+            # load the profile instance created by the signal
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+
+            # login user after signing up
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+
+            # redirect user to home page
+            return redirect('/')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
