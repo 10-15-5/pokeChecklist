@@ -25,3 +25,7 @@ body {
 .login-form #id_username {
   margin-left: 21px;
 }
+
+.signup-form label {
+  margin-bottom: 10px;
+}

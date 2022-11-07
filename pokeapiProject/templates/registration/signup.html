@@ -1,14 +1,14 @@
 {% extends 'registration/registration-base.html' %}
 
 {% block content %}
-<div class="mt-5" align="center">
-  <h2>Sign up</h2>
+<div class="mt-5 signup-form" align="center">
+  <h2 class="mb-3">Sign up</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
       <p>
         {{ field.label_tag }}<br>
-        {{ field }}<br><br>
+        {{ field }}
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
