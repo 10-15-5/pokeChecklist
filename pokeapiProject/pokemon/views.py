@@ -43,8 +43,9 @@ def index(request):
 
 
 def thanks(request):
-
-    pokemon_caught = request.POST.getlist('pokemon')
+    pokemon_caught = len(request.POST.getlist('pokemon'))
+    pokemon_missing = 151 - pokemon_caught
+    percent_caught = round((pokemon_caught / 151)*100)
 
     response = DatabaseActions.search_caught_pokemon(request.user.username)
 
@@ -53,12 +54,17 @@ def thanks(request):
     else:
         DatabaseActions.insert_caught_pokemon(request.user.username, pokemon_caught)
 
-    context = {"pokemon":pokemon_caught}
+    context = {
+        "pokemon_caught": pokemon_caught, 
+        "pokemon_missing": pokemon_missing,
+        "percent_caught": percent_caught,
+    }
     return render(request, 'thanks.html', context)
 
 
 def about(request):
     return render(request, 'test-about.html')
+
 
 def signup(request):
     if request.method == 'POST':

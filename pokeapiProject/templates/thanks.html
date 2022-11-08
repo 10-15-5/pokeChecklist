@@ -1,10 +1,16 @@
 {% extends 'base.html' %}  
   
 {% block content %}
-    <h1 class="mt-5 mb-5 text-center">You have caught these Pokemon!</h1>
-    {% for i in pokemon %}
-    <div class="col-md-3 justify-content-center">
-        <h2>{{ i }}</h2>
-    </div> 
-    {% endfor %}
+<div class="row w-100">
+    <div class="col-md-4">
+        <h1 class="mt-5 text-center">Caught: <strong>{{ pokemon_caught }}</strong> Pokemon</h1>
+    </div>
+    <div class="col-md-4">
+        <h1 class="mt-5 text-center">Missing: <strong>{{ pokemon_missing }}</strong> Pokemon</h1>
+    </div>
+    <div class="col-md-4">
+        <h1 class="mt-5 text-center">Percent Caught: <strong>{{ percent_caught }}%</strong></h1>
+    </div>
+</div>
+
 {% endblock content %}
