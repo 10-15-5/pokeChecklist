@@ -12,5 +12,26 @@
         <h1 class="mt-5 text-center">Percent Caught: <strong>{{ percent_caught }}%</strong></h1>
     </div>
 </div>
+<div id="tester" class="container d-flex align-items-center justify-content-center mt-5">
+</div>
+
+<script>
+   var data = [{
+      values: ["{{ pokemon_caught }}", "{{ pokemon_missing }}"],
+      labels: ['Caught', 'Missing'],
+      type: 'pie',
+      marker: {
+      colors: ['#38b800','#ff1100']
+   }
+   }];
+
+   var layout = {
+      height: 400,
+      width: 500
+   };
+
+   Plotly.newPlot('tester', data, layout);
+
+</script>
 
 {% endblock content %}
