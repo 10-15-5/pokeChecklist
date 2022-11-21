@@ -1,7 +1,7 @@
 @import 'variables.scss';
 
 body{
-    background-color: lightblue;
+    background-color: $body;
 }
 
 .poke-container{
@@ -87,6 +87,10 @@ body{
 
 .bg-color-fairy {
     background-color: $fairy;
+}
+
+.bg-color-body {
+    background-color: $body;
 }
 
 .header {
