@@ -42,7 +42,7 @@ def index(request):
     return render(request, 'home.html', context)
 
 
-def thanks(request):
+def graphs(request):
     pokemon_caught = len(request.POST.getlist('pokemon'))
     pokemon_missing = 151 - pokemon_caught
     percent_caught = round((pokemon_caught / 151)*100)
@@ -59,7 +59,7 @@ def thanks(request):
         "pokemon_missing": pokemon_missing,
         "percent_caught": percent_caught,
     }
-    return render(request, 'thanks.html', context)
+    return render(request, 'graphs.html', context)
 
 
 def about(request):
