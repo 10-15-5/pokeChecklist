@@ -13,3 +13,14 @@ function kantoSelectAll(source) {
         }
     }
 }
+
+function validateSubmit() {
+    var checked = document.querySelectorAll('input:checked');
+    
+    if(checked.length === 0){
+        document.getElementById('submitBtn').disabled = true;
+    }
+    else{
+        document.getElementById('submitBtn').disabled = false;
+    }
+}

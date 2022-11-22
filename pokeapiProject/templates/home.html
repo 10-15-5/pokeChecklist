@@ -25,9 +25,9 @@
                                   <div class="row">
                                       <div class="col-4" align="center">
                                           {% if i.caught == "true" %}
-                                              <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}" checked>
+                                              <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}" onchange="validateSubmit()" checked>
                                           {% else %}
-                                              <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}">
+                                              <input class="poke-checkbox" type="checkbox" id="{{ i.name }}" name="pokemon" value="{{ i.name }}" onchange="validateSubmit()">
                                           {% endif %}
                                       </div>
                                       <div class="col-8" align="left">
@@ -125,9 +125,28 @@
                   </div>
                 </div>
               </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingNine">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine" disabled>
+                    Gen 9 - Paldea (Coming Soon)
+                  </button>
+                </h2>
+                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    Pokemon Coming Soon
+                  </div>
+                </div>
+              </div>
           </div>
         <div class="mt-5 mb-5 text-center">
-            <input  class="btn btn-lg btn-primary" type="submit" value="Submit">
+            <input class="btn btn-lg btn-primary" id="submitBtn" type="submit" value="Submit">
         </div>
     </form>
+    <script>
+      var checked = document.querySelectorAll('input:checked');
+    
+      if(checked.length === 0){
+          document.getElementById('submitBtn').disabled = true;
+      }
+    </script>
 {% endblock content %} 
