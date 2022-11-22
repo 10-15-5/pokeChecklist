@@ -96,6 +96,6 @@ def signup(request):
 
 
 def pokemon_details(request):
-    print(request)
+    print(request.GET.get("pokemon"))
 
     return render(request, 'test.html')
