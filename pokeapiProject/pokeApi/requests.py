@@ -114,7 +114,7 @@ class DatabaseActions:
         result = cursor_obj.execute("SELECT Pokemon FROM CAUGHT_POKEMON WHERE Name=?", (name,))
 
         for row in result:
-            print(row)
+            result = row
 
         connection_obj.close()        
 

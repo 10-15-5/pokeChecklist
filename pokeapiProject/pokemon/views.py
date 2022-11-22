@@ -43,9 +43,11 @@ def index(request):
 
 
 def graphs(request):
-    pokemon_caught = len(request.POST.getlist('pokemon'))
-    pokemon_missing = 151 - pokemon_caught
-    percent_caught = round((pokemon_caught / 151)*100)
+    
+    pokemon_caught = request.POST.getlist('pokemon')
+    len_pokemon_caught = len(request.POST.getlist('pokemon'))
+    pokemon_missing = 151 - len_pokemon_caught
+    percent_caught = round((len_pokemon_caught / 151)*100)
 
     response = DatabaseActions.search_caught_pokemon(request.user.username)
 
@@ -55,7 +57,7 @@ def graphs(request):
         DatabaseActions.insert_caught_pokemon(request.user.username, pokemon_caught)
 
     context = {
-        "pokemon_caught": pokemon_caught, 
+        "pokemon_caught": len_pokemon_caught, 
         "pokemon_missing": pokemon_missing,
         "percent_caught": percent_caught,
     }
