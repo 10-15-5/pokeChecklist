@@ -93,3 +93,9 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+def pokemon_details(request):
+    print(request)
+
+    return render(request, 'test.html')
