@@ -1,3 +1,5 @@
+import re
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
@@ -22,10 +24,14 @@ def index(request):
 
     count = 0
     if type(response) is tuple:
+
+        response_list = re.sub(r"[\[\]'\s]", "", response[0])
+        response_list = response_list.split(",")
+
         for i in colours:
             pokemon_list[count]["color"] = i[0]
 
-            if pokemon_list[count]["name"] in response[0]:
+            if pokemon_list[count]["name"] in response_list:
                 pokemon_list[count]["caught"] = "true"
             else:
                 pokemon_list[count]["caught"] = "false"
