@@ -20,7 +20,9 @@
                           <div class="col-md-3 justify-content-center">
                               <div class="poke-container bg-color-{{ i.color }}">
                                   <div class="row pt-2">
+                                    <a href="{% url 'pokemon' %}?{{ i.name }}" class="text-center">
                                       <img style="width:150px;" class="mx-auto" src="../static/img/pokemon/{{ i.name }}.webp">
+                                    </a>
                                   </div>
                                   <div class="row">
                                       <div class="col-4" align="center">
