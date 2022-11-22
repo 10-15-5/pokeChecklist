@@ -85,8 +85,8 @@ class DatabaseActions:
 
         print("Data Inserted in the table: ")
         data=cursor_obj.execute('''SELECT * FROM CAUGHT_POKEMON''')
-        for row in data:
-            print(row)
+        # for row in data:
+        #     print(row)
 
         connection_obj.commit()
         
@@ -99,8 +99,8 @@ class DatabaseActions:
         cursor_obj.execute('''UPDATE CAUGHT_POKEMON SET Pokemon = ? WHERE Name = ?''', (str(pokemon), name ))
 
         data=cursor_obj.execute('''SELECT * FROM CAUGHT_POKEMON''')
-        for row in data:
-            print(row)
+        # for row in data:
+        #     print(row)
 
         connection_obj.commit()
         
