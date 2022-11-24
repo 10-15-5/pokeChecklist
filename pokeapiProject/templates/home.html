@@ -15,9 +15,10 @@
               <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <input class="btn btn-lg btn-primary mb-5" type="button" value="Select All" onClick="kantoSelectAll(this)">
+                  <input class="btn btn-lg btn-primary mb-5" type="button" value="Hide Caught" id="hide-caught" onClick="kantoHideCaught(this)">
                   <div class="row w-100">
                       {% for i in details %}
-                          <div class="col-md-3 justify-content-center">
+                          <div id="pokemon-div-{{ i.name }}" class="col-md-3 justify-content-center" style="display: block">
                               <div class="poke-container bg-color-{{ i.color }}">
                                   <div class="row pt-2">
                                     <a href="{% url 'wiki' %}?pokemon={{ i.name }}" class="text-center">

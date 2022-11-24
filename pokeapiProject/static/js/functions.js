@@ -14,6 +14,25 @@ function kantoSelectAll(source) {
     }
 }
 
+function kantoHideCaught(source) {
+    var checked = document.querySelectorAll('input:checked');
+
+    if(document.getElementById("hide-caught").value === "Hide Caught"){
+        for(var i=0;i<checked.length;i++){
+            div = document.getElementById('pokemon-div-' + checked[i].value);
+            div.style.display = "none";
+        }
+        document.getElementById("hide-caught").value = "Show Caught";
+    }
+    else{
+        for(var i=0;i<checked.length;i++){
+            div = document.getElementById('pokemon-div-' + checked[i].value);
+            div.style.display = "block";
+        }
+        document.getElementById("hide-caught").value = "Hide Caught";
+    }
+}
+
 function validateSubmit() {
     var checked = document.querySelectorAll('input:checked');
     
