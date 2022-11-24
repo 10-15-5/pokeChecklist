@@ -96,6 +96,6 @@ def signup(request):
 
 
 def pokemon_details(request):
-    print(request.GET.get("pokemon"))
+    details = pokeApiRequests.get_pokemon_details(request.GET.get("pokemon"))
 
-    return render(request, 'test.html')
+    return render(request, 'wiki.html', details)

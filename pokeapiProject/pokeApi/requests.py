@@ -20,6 +20,202 @@ class pokeApiRequests():
 
         return type
 
+    def type_effectiveness(type):
+        double_damage_from = []
+        normal_damage_from = []
+        half_damage_from = []
+        no_damage_from = []
+        types = []
+
+        x = requests.get('https://pokeapi.co/api/v2/type').json()["results"]
+        for i in x:
+            types.append(i["name"])
+            if len(types) == 18:
+                break
+
+        type_details = requests.get('https://pokeapi.co/api/v2/type/' + type).json()["damage_relations"]
+
+        if len(type_details["double_damage_from"]) != 0:
+            for i in type_details["double_damage_from"]:
+                double_damage_from.append(i["name"])
+        if len(type_details["half_damage_from"]) != 0:
+            for i in type_details["half_damage_from"]:
+                half_damage_from.append(i["name"])
+        if len(type_details["no_damage_from"]) != 0:
+            for i in type_details["no_damage_from"]:
+                no_damage_from.append(i["name"])
+
+        for i in types:
+            if i not in double_damage_from and i not in half_damage_from and i not in no_damage_from:
+                normal_damage_from.append(i)
+
+        type_eff = {
+            "quad_damage_from": [],
+            "double_damage_from": double_damage_from,
+            "normal_damage_from": normal_damage_from,
+            "half_damage_from": half_damage_from,
+            "quarter_damage_from": [],
+            "no_damage_from": no_damage_from,
+        }
+
+        return type_eff
+
+    def validate_type_effectiveness(type_eff):
+        new_type_eff = {
+            "quad_damage_from": [],
+            "double_damage_from": [],
+            "normal_damage_from": [],
+            "half_damage_from": [],
+            "quarter_damage_from": [],
+            "no_damage_from": [],
+        }
+
+        first_type = list(type_eff.values())[0]
+        second_type = list(type_eff.values())[1]
+        
+        for i in first_type["double_damage_from"]:
+            if i in second_type["double_damage_from"]:
+                # Type 1 = 2x
+                # Type 2 = 2x
+                #--------------
+                # Overall = 4x
+                new_type_eff["quad_damage_from"].append(i)
+            elif i in second_type["half_damage_from"]:
+                # Type 1 = 2x
+                # Type 2 = 1/2x
+                #--------------
+                # Overall = 1x
+                new_type_eff["normal_damage_from"].append(i)
+            elif i in second_type["no_damage_from"]:
+                # Type 1 = 2x
+                # Type 2 = 0x
+                #--------------
+                # Overall = 0x
+                new_type_eff["no_damage_from"].append(i)
+            else:
+                # Type 1 = 2x
+                # Type 2 = 1x
+                #--------------
+                # Overall = 2x
+                new_type_eff["double_damage_from"].append(i)
+        
+        for i in first_type["normal_damage_from"]:
+            if i in second_type["double_damage_from"]:
+                # Type 1 = 1x
+                # Type 2 = 2x
+                #--------------
+                # Overall = 2x
+                new_type_eff["double_damage_from"].append(i)
+            elif i in second_type["half_damage_from"]:
+                # Type 1 = 1x
+                # Type 2 = 1/2x
+                #--------------
+                # Overall = 1/2x
+                new_type_eff["half_damage_from"].append(i)
+            elif i in second_type["no_damage_from"]:
+                # Type 1 = 1x
+                # Type 2 = 0x
+                #--------------
+                # Overall = 0x
+                new_type_eff["no_damage_from"].append(i)
+            else:
+                # Type 1 = 1x
+                # Type 2 = 1x
+                #--------------
+                # Overall = 1x
+                new_type_eff["normal_damage_from"].append(i)
+        for i in first_type["half_damage_from"]:
+            if i in second_type["double_damage_from"]:
+                # Type 1 = 1/2x
+                # Type 2 = 2x
+                #--------------
+                # Overall = 1x
+                new_type_eff["normal_damage_from"].append(i)
+            elif i in second_type["half_damage_from"]:
+                # Type 1 = 1/2x
+                # Type 2 = 1/2x
+                #--------------
+                # Overall = 1/4x
+                new_type_eff["quarter_damage_from"].append(i)
+            elif i in second_type["no_damage_from"]:
+                # Type 1 = 1/2x
+                # Type 2 = 0x
+                #--------------
+                # Overall = 0x
+                new_type_eff["no_damage_from"].append(i)
+            else:
+                # Type 1 = 1/2x
+                # Type 2 = 1x
+                #--------------
+                # Overall = 1/2x
+                new_type_eff["half_damage_from"].append(i)
+        for i in first_type["no_damage_from"]:
+            if i in second_type["double_damage_from"]:
+                # Type 1 = 0x
+                # Type 2 = 2x
+                #--------------
+                # Overall = 0x
+                new_type_eff["no_damage_from"].append(i)
+            elif i in second_type["half_damage_from"]:
+                # Type 1 = 0x
+                # Type 2 = 1/2x
+                #--------------
+                # Overall = 0x
+                new_type_eff["no_damage_from"].append(i)
+            elif i in second_type["no_damage_from"]:
+                # Type 1 = 0x
+                # Type 2 = 0x
+                #--------------
+                # Overall = 0x
+                new_type_eff["no_damage_from"].append(i)
+            else:
+                # Type 1 = 0x
+                # Type 2 = 1x
+                #--------------
+                # Overall = 0x
+                new_type_eff["no_damage_from"].append(i)
+
+        return new_type_eff
+
+    def get_pokemon_details(pokemon):
+        type_eff = {}
+
+        details = requests.get('https://pokeapi.co/api/v2/pokemon/' + pokemon).json()
+
+        type = [details["types"][0]["type"]["name"]]
+        if len(details["types"]) > 1:
+            type.append(details["types"][1]["type"]["name"])
+
+        if len(type) == 1:
+            type_eff = pokeApiRequests.type_effectiveness(type[0])
+
+        if len(type) > 1:
+            for i in type:
+                type_eff[i] = pokeApiRequests.type_effectiveness(i)
+            type_eff = pokeApiRequests.validate_type_effectiveness(type_eff)
+
+        stats = {
+            "hp": details["stats"][0]["base_stat"],
+            "attack": details["stats"][1]["base_stat"],
+            "defense": details["stats"][2]["base_stat"],
+            "sp_atk": details["stats"][3]["base_stat"],
+            "sp_def": details["stats"][4]["base_stat"],
+            "speed": details["stats"][5]["base_stat"],
+        }
+
+        height = details["height"] / 10
+        weight = details["weight"] / 10
+
+        details = {
+            "pokemon": pokemon,
+            "type_eff": type_eff,
+            "stats": stats,
+            "height": height,
+            "weight": weight,
+        }
+
+        return details
+
 
 class SearchPokemonColors:
     def __init__(self, pokemon=None, colour=None):
