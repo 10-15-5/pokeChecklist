@@ -93,6 +93,15 @@ body{
     background-color: $body;
 }
 
+.bg-grey {
+    background-color: #eeeeee;
+}
+
+.color-none {
+    background-color: black;
+    color: white;
+}
+
 .header {
     overflow: hidden;
     background-color: #f1f1f1;

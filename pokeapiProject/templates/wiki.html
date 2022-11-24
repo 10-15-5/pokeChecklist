@@ -2,10 +2,172 @@
   
 {% block content %}
 
-<div class="mt-5 text-center">
-    <h1 class="text-capitalize">{{ pokemon }}</h1>
-    <img class="mx-auto" src="../static/img/pokemon/{{ pokemon }}.webp">
+<div class="mt-5 mb-5">
+    <div class="border rounded w-50 container align-items-center justify-content-center" style="background-color:white;">
+        <div class="border-bottom mt-2">
+            <h1 class="text-capitalize text-center">{{ pokemon }}</h1>
+        </div>
+        <div class="text-center border-bottom bg-color-{{ color }}">
+            <img src="../static/img/pokemon/{{ pokemon }}.webp">
+        </div>
+        <div class="row border-bottom mt-2">
+            <div class="col-12 col-md-6 text-center">
+                <strong>Height</strong><br>
+                {{ height }} m
+            </div>
+            <div class="col-12 col-md-6 text-center">
+                <strong>Weight</strong><br>
+                {{ weight }} kg
+            </div>
+        </div>
+        <div>
+            <div id="statsChart"></div>
+        </div>
+        <div>
+            <div class="border rounded row mb-2 mx-1">
+                <div class="col-4">
+                    <p>4x Weak To:</p>
+                </div>
+                <div class="col-8 row">
+                    {% if type_eff.quad_damage_from|length == 0 %}
+                        <div class="col-3">
+                            <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center color-none">None</p>    
+                        </div>
+                    {% else %}
+                        {% for i in type_eff.quad_damage_from %}
+                            <div class="col-3">
+                                <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center bg-color-{{ i }}">{{ i }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="border rounded row mb-2 mx-1 bg-grey">
+                <div class="col-4">
+                    <p>2x Weak To:</p>
+                </div>
+                <div class="col-8 row">
+                    {% if type_eff.double_damage_from|length == 0 %}
+                        <div class="col-3">
+                            <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center color-none">None</p>    
+                        </div>
+                    {% else %}
+                        {% for i in type_eff.double_damage_from %}
+                            <div class="col-3">
+                                <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center bg-color-{{ i }}">{{ i }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="border rounded row mb-2 mx-1">
+                <div class="col-4">
+                    <p>1x Weak To:</p>
+                </div>
+                <div class="col-8 row">
+                    {% if type_eff.normal_damage_from|length == 0 %}
+                        <div class="col-3">
+                            <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center color-none">None</p>    
+                        </div>
+                    {% else %}
+                        {% for i in type_eff.normal_damage_from %}
+                            <div class="col-3">
+                                <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center bg-color-{{ i }}">{{ i }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="border rounded row mb-2 mx-1 bg-grey">
+                <div class="col-4">
+                    <p>1/2x Weak To:</p>
+                </div>
+                <div class="col-8 row">
+                    {% if type_eff.half_damage_from|length == 0 %}
+                        <div class="col-3">
+                            <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center color-none">None</p>    
+                        </div>
+                    {% else %}
+                        {% for i in type_eff.half_damage_from %}
+                            <div class="col-3">
+                                <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center bg-color-{{ i }}">{{ i }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="border rounded row mb-2 mx-1">
+                <div class="col-4">
+                    <p>1/4x Weak To:</p>
+                </div>
+                <div class="col-8 row">
+                    {% if type_eff.quarter_damage_from|length == 0 %}
+                        <div class="col-3">
+                            <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center color-none">None</p>    
+                        </div>
+                    {% else %}
+                        {% for i in type_eff.quarter_damage_from %}
+                            <div class="col-3">
+                                <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center bg-color-{{ i }}">{{ i }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="border rounded row mb-2 mx-1 bg-grey">
+                <div class="col-4">
+                    <p>No Damage From:</p>
+                </div>
+                <div class="col-8 row">
+                    {% if type_eff.no_damage_from|length == 0 %}
+                        <div class="col-3">
+                            <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center color-none">None</p>    
+                        </div>
+                    {% else %}
+                        {% for i in type_eff.no_damage_from %}
+                            <div class="col-3">
+                                <p class="border rounded mt-2 text-capitalize fw-bold py-1 text-center bg-color-{{ i }}">{{ i }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+<script>
+    var data = [{
+        type: 'bar',
+        x: [
+            '{{ stats.speed }}',
+            '{{ stats.sp_def }}',
+            '{{ stats.sp_atk }}',
+            '{{ stats.defense }}',
+            '{{ stats.attack }}',
+            '{{ stats.hp }}',
+        ],
+        y: [
+            'Speed',
+            'Sp. Defense', 
+            'Sp. Attack', 
+            'Defense',
+            'Attack', 
+            'HP',
+        ],
+        marker: {
+            color: [
+            '#F85888',
+            '#78C850',
+            '#6890F0',
+            '#F8D030',
+            '#F08030',
+            '#FF0000'
+        ]},
+        orientation: 'h',
+    }];
+
+    Plotly.newPlot('statsChart', data);
+</script>
 
 {% endblock content %}

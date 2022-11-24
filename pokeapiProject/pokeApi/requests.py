@@ -208,6 +208,7 @@ class pokeApiRequests():
 
         details = {
             "pokemon": pokemon,
+            "color": type[0],
             "type_eff": type_eff,
             "stats": stats,
             "height": height,
