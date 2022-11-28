@@ -5,6 +5,12 @@ import sqlite3
 class pokeApiRequests():
 
     def get_pokemon_by_loc(location):
+        """ 
+        Returns the pokemon names from the location name.
+        
+        Keyword arguments:
+        location -- string -- the name of the location (Kanto, Johto etc.)
+        """
         pokemon = []
         x = requests.get('https://pokeapi.co/api/v2/pokedex/' + location).json()
 
@@ -14,6 +20,14 @@ class pokeApiRequests():
         return pokemon
 
     def get_first_type_by_pokemon(pokemon):
+        """
+        Returns the first typing for a given Pokemon.
+
+        *Currently not used*
+
+        Keyword arguments:
+        pokemon -- string -- The name of the pokemon
+        """
         x = requests.get('https://pokeapi.co/api/v2/pokemon/' + pokemon).json()
 
         type = x["types"][0]["type"]["name"]
@@ -21,6 +35,19 @@ class pokeApiRequests():
         return type
 
     def type_effectiveness(type):
+        """
+        Returns a dicitonary with the damage information for a given type.  
+
+        Gets the type details from the PokeAPI.
+        Loops through each damage info section and, if it contains entries, adds them to a list.
+        If a move is not mentioned in the JSON object sent back from the API then it is added to the normal_damage list.
+        All the lists are added to a dicitonary.
+        Quad and Quarter damage entries are added for compatibility reasons even though one type Pokemon will never have a Quad weakness.
+
+        Keyword arguments:
+        type -- string -- The type name (Fairy, Normal etc.)
+        """
+
         double_damage_from = []
         normal_damage_from = []
         half_damage_from = []
@@ -61,6 +88,16 @@ class pokeApiRequests():
         return type_eff
 
     def validate_type_effectiveness(type_eff):
+        """
+        Given two types it returns a new dictionary with type effectiveness.
+
+        If the first typing and the second typing take double damage from the same type, then the Pokemon is quad weak to that type...
+        These new type damage stats are added to a new dicitonary for the Pokemon.
+        This new dictionary is returned to replace the previous dicitonary going forward.
+
+        Keyword arguments:
+        type_eff -- dict -- Dictionary with both types' weaknesses
+        """
         new_type_eff = {
             "quad_damage_from": [],
             "double_damage_from": [],
@@ -98,7 +135,6 @@ class pokeApiRequests():
                 #--------------
                 # Overall = 2x
                 new_type_eff["double_damage_from"].append(i)
-        
         for i in first_type["normal_damage_from"]:
             if i in second_type["double_damage_from"]:
                 # Type 1 = 1x
@@ -178,6 +214,23 @@ class pokeApiRequests():
         return new_type_eff
 
     def get_pokemon_details(pokemon):
+        """
+        The main method to get details for the Pokemon wiki page. Returns a dictionary with all necessary details.
+
+        Gets the details from PokeAPI.
+        Adds the type to a list and then checks if the Pokemon has another type, if they do it is also added to the list.
+        If the Pokemon only has one type, send it to the type_effectiveness function to get back the dicitonary of it's weaknesses.
+        If the Pokemon has 2 types, do the above for BOTH types, then send all these weaknesses to the validate_type_effectiveness 
+        function to get back their combined weaknesses.
+        Get the base stats for the Pokemon and add them to a dictionary.
+        Get the height of the Pokemon.
+        Get the weight of the Pokemon.
+        Add all the dicitonaries to a new dictionary called details and return this to the parent function.
+
+        Keyword arguments:
+        pokemon -- string -- The name of the Pokemon
+        """
+
         type_eff = {}
 
         details = requests.get('https://pokeapi.co/api/v2/pokemon/' + pokemon).json()
