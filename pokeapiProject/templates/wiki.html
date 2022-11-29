@@ -167,7 +167,11 @@
         orientation: 'h',
     }];
 
-    Plotly.newPlot('statsChart', data);
+    var layout = {
+        title: 'Base Stats'
+    };
+
+    Plotly.newPlot('statsChart', data, layout, {displayModeBar: false});
 </script>
 
 {% endblock content %}
