@@ -1,6 +1,7 @@
 {% extends 'base.html' %}  
   
 {% block content %}
+<script id="types-json" type="application/json">{{ types_caught }}</script>
 <div class="row w-100">
     <div class="col-md-4">
         <h1 class="mt-5 text-center">Caught: <strong>{{ pokemon_caught }}</strong> Pokemon</h1>
@@ -12,7 +13,9 @@
         <h1 class="mt-5 text-center">Percent Caught: <strong>{{ percent_caught }}%</strong></h1>
     </div>
 </div>
-<div id="tester" class="container d-flex align-items-center justify-content-center mt-5">
+<div class="row">
+   <div id="caught-pokemon" class="col-6 container d-flex align-items-center justify-content-center mt-5"></div>
+   <div id="types-caught" class="col-6 container d-flex align-items-center justify-content-center mt-5"></div>
 </div>
 
 <script>
@@ -30,12 +33,82 @@
       width: 500,
       paper_bgcolor: 'lightblue',
       showlegend: false,
+      title: 'Pokemon Caught',
       hoverlabel: {
          bgcolor: 'black'
       }
    };
 
-   Plotly.newPlot('tester', data, layout, {displayModeBar: false});
+   Plotly.newPlot('caught-pokemon', data, layout, {displayModeBar: false});
+
+   var type_list = [];
+
+   "{% for i in types_caught %}"
+      type_list.push("{{ i }}");
+   "{% endfor %}"
+
+   var type_count = [
+      "{{ types_caught.normal }}",
+      "{{ types_caught.fire }}",
+      "{{ types_caught.water }}",
+      "{{ types_caught.electric }}",
+      "{{ types_caught.grass }}",
+      "{{ types_caught.ice }}",
+      "{{ types_caught.fighting }}",
+      "{{ types_caught.poison }}",
+      "{{ types_caught.ground }}",
+      "{{ types_caught.flying }}",
+      "{{ types_caught.psychic }}",
+      "{{ types_caught.bug }}",
+      "{{ types_caught.rock }}",
+      "{{ types_caught.ghost }}",
+      "{{ types_caught.dragon }}",
+      "{{ types_caught.dark }}",
+      "{{ types_caught.steel }}",
+      "{{ types_caught.fairy }}",
+   ];
+
+   var data2 = [{
+      values: type_count,
+      labels: type_list,
+      type: 'pie',
+      textposition: 'inside',
+      marker: {
+         colors: [
+            '#A8A77A',
+            '#EE8130',
+            '#6390F0',
+            '#F7D02C',
+            '#7AC74C',
+            '#96D9D6',
+            '#C22E28',
+            '#A33EA1',
+            '#E2BF65',
+            '#A98FF3',
+            '#F95587',
+            '#A6B91A',
+            '#B6A136',
+            '#735797',
+            '#6F35FC',
+            '#705746',
+            '#B7B7CE',
+            '#D685AD',
+         ]
+      }
+   }];
+
+   var layout2 = {
+      height: 400,
+      width: 500,
+      paper_bgcolor: 'lightblue',
+      showlegend: false,
+      title: 'Pokemon by Type',
+      hoverlabel: {
+         bgcolor: 'black'
+      }
+   };
+
+   Plotly.newPlot('types-caught', data2, layout2, {displayModeBar: false});
 
 </script>
 
