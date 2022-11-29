@@ -272,35 +272,30 @@ class pokeApiRequests():
 
 
 class SearchPokemonColors:
-    def __init__(self, pokemon=None, colour=None):
-        self.pokemon = pokemon
-        self.colour = colour
-
-
-    def search_all(self):
+    def search_all():
         db = sqlite3.connect("Pokemon.db")
         cursor = db.cursor()
-        cursor.execute('''SELECT * FROM POKEMON_COLOURS''')
+        cursor.execute('''SELECT * FROM POKEMON_FIRST_TYPE''')
         items = cursor.fetchall()
         db.close()
 
         return items
 
 
-    def get_colors(self):
+    def get_colors():
         db = sqlite3.connect("Pokemon.db")
         cursor = db.cursor()
-        cursor.execute('''SELECT colour FROM POKEMON_COLOURS''')
+        cursor.execute('''SELECT colour FROM POKEMON_FIRST_TYPE''')
         results = cursor.fetchall()
         db.close()
 
         return results 
 
 
-    def get_colour_by_pokemon(self):
+    def get_colour_by_pokemon(pokemon):
         db = sqlite3.connect("Pokemon.db")
         cursor = db.cursor()
-        cursor.execute('''SELECT colour FROM POKEMON_COLOURS WHERE pokemon = ? ''' , (self.pokemon,))
+        cursor.execute('''SELECT colour FROM POKEMON_FIRST_TYPE WHERE pokemon = ? ''' , (pokemon,))
         results = cursor.fetchone()
         db.close()
 
@@ -332,11 +327,7 @@ class DatabaseActions:
         cursor_obj = connection_obj.cursor()
 
         cursor_obj.execute('''INSERT INTO CAUGHT_POKEMON VALUES (?, ?)''', (name, str(pokemon)))
-
-        print("Data Inserted in the table: ")
         data=cursor_obj.execute('''SELECT * FROM CAUGHT_POKEMON''')
-        # for row in data:
-        #     print(row)
 
         connection_obj.commit()
         
@@ -349,8 +340,6 @@ class DatabaseActions:
         cursor_obj.execute('''UPDATE CAUGHT_POKEMON SET Pokemon = ? WHERE Name = ?''', (str(pokemon), name ))
 
         data=cursor_obj.execute('''SELECT * FROM CAUGHT_POKEMON''')
-        # for row in data:
-        #     print(row)
 
         connection_obj.commit()
         

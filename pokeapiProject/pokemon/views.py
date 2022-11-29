@@ -18,7 +18,7 @@ def index(request):
 
     pokemon_list = pokeApiRequests.get_pokemon_by_loc("kanto")
     
-    colours = SearchPokemonColors().get_colors()
+    colours = SearchPokemonColors.get_colors()
 
     response = DatabaseActions.search_caught_pokemon(request.user.username)
 
@@ -49,6 +49,26 @@ def index(request):
 
 
 def graphs(request):
+    pokemon_types = {
+        "normal": 0,
+        "fire": 0,
+        "water": 0,
+        "electric": 0,
+        "grass": 0,
+        "ice": 0,
+        "fighting": 0,
+        "poison": 0,
+        "ground": 0,
+        "flying": 0,
+        "psychic": 0,
+        "bug": 0,
+        "rock": 0,
+        "ghost": 0,
+        "dragon": 0,
+        "dark": 0,
+        "steel": 0,
+        "fairy": 0
+    }
     
     pokemon_caught = request.POST.getlist('pokemon')
     len_pokemon_caught = len(request.POST.getlist('pokemon'))
@@ -62,10 +82,16 @@ def graphs(request):
     else:
         DatabaseActions.insert_caught_pokemon(request.user.username, pokemon_caught)
 
+    for i in pokemon_caught:
+        first_type = SearchPokemonColors.get_colour_by_pokemon(i)[0]
+        
+        pokemon_types[first_type] += 1
+
     context = {
         "pokemon_caught": len_pokemon_caught, 
         "pokemon_missing": pokemon_missing,
         "percent_caught": percent_caught,
+        "types_caught": pokemon_types,
     }
     return render(request, 'graphs.html', context)
 
