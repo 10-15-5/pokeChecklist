@@ -266,6 +266,7 @@ class pokeApiRequests():
             "stats": stats,
             "height": height,
             "weight": weight,
+            "type": type,
         }
 
         return details
