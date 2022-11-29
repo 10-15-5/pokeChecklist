@@ -288,7 +288,6 @@ class SearchPokemonColors:
 
         return items
 
-
     def get_colors():
         """
         Returns color from the table POKEMON_FIRST_TYPE
@@ -303,7 +302,6 @@ class SearchPokemonColors:
         db.close()
 
         return results 
-
 
     def get_colour_by_pokemon(pokemon):
         """
@@ -381,7 +379,6 @@ class DatabaseActions:
         
         connection_obj.close()
 
-    
     def search_caught_pokemon(name):
         """
         Searches the database and returns the list of pokemon given a name
