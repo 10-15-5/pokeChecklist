@@ -274,6 +274,12 @@ class pokeApiRequests():
 
 class SearchPokemonColors:
     def search_all():
+        """
+        Returns all data from the table POKEMON_FIRST_TYPE
+
+        Keyword arguments:
+        None
+        """
         db = sqlite3.connect("Pokemon.db")
         cursor = db.cursor()
         cursor.execute('''SELECT * FROM POKEMON_FIRST_TYPE''')
@@ -284,6 +290,12 @@ class SearchPokemonColors:
 
 
     def get_colors():
+        """
+        Returns color from the table POKEMON_FIRST_TYPE
+
+        Keyword arguments:
+        None
+        """
         db = sqlite3.connect("Pokemon.db")
         cursor = db.cursor()
         cursor.execute('''SELECT colour FROM POKEMON_FIRST_TYPE''')
@@ -294,6 +306,12 @@ class SearchPokemonColors:
 
 
     def get_colour_by_pokemon(pokemon):
+        """
+        Returns color from the table POKEMON_FIRST_TYPE given a specific Pokemon
+
+        Keyword arguments:
+        pokemon -- string -- The name of the Pokemon 
+        """
         db = sqlite3.connect("Pokemon.db")
         cursor = db.cursor()
         cursor.execute('''SELECT colour FROM POKEMON_FIRST_TYPE WHERE pokemon = ? ''' , (pokemon,))
@@ -306,6 +324,12 @@ class SearchPokemonColors:
 class DatabaseActions:
 
     def create_table():
+        """
+        Creates a table with a Name column that has to be unique and a Pokemon column
+
+        Keyword arguments:
+        None
+        """
         connection_obj = sqlite3.connect("Pokemon.db")
         cursor_obj = connection_obj.cursor()
         
@@ -319,22 +343,33 @@ class DatabaseActions:
         
         cursor_obj.execute(table)
         
-        print("Table is Ready")
-        
         connection_obj.close()
 
     def insert_caught_pokemon(name,pokemon):
+        """
+        Inserts the caught pokemon list into the database for the user, creating the user if they don't exist
+
+        Keyword arguments:
+        name -- string -- The name of the user
+        pokemon -- list -- The list of all pokemon the user has caught
+        """
         connection_obj = sqlite3.connect("Pokemon.db")
         cursor_obj = connection_obj.cursor()
 
         cursor_obj.execute('''INSERT INTO CAUGHT_POKEMON VALUES (?, ?)''', (name, str(pokemon)))
-        data=cursor_obj.execute('''SELECT * FROM CAUGHT_POKEMON''')
 
         connection_obj.commit()
         
         connection_obj.close()
 
     def update_caught_pokemon(name,pokemon):
+        """
+        If the user already exists, this updates the table with their new caught Pokemon
+
+        Keyword arguments:
+        name -- string -- The name of the user
+        pokemon -- list -- The list of all pokemon the user has caught
+        """
         connection_obj = sqlite3.connect("Pokemon.db")
         cursor_obj = connection_obj.cursor()
 
@@ -348,6 +383,12 @@ class DatabaseActions:
 
     
     def search_caught_pokemon(name):
+        """
+        Searches the database and returns the list of pokemon given a name
+
+        Keyword arguments:
+        name -- string -- The name of the user to search
+        """
         connection_obj = sqlite3.connect("Pokemon.db")
         cursor_obj = connection_obj.cursor()
 

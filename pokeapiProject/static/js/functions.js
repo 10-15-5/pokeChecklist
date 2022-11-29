@@ -1,4 +1,6 @@
 function kantoSelectAll(source) {
+    // Function to select all and deselect all Kanto Pokemon
+
     checkboxes = document.getElementsByName('pokemon');
     var checked = document.querySelectorAll('input:checked');
 
@@ -15,6 +17,8 @@ function kantoSelectAll(source) {
 }
 
 function kantoHideCaught(source) {
+    // Function to hide and show the Pokemon that have been checked
+
     var checked = document.querySelectorAll('input:checked');
 
     if(document.getElementById("hide-caught").value === "Hide Caught"){
@@ -34,6 +38,8 @@ function kantoHideCaught(source) {
 }
 
 function validateSubmit() {
+    // If none of the Pokemon have been checked, the submit button becomes disabled
+
     var checked = document.querySelectorAll('input:checked');
     
     if(checked.length === 0){
