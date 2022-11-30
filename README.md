@@ -5,6 +5,7 @@ Computer Science project to display pokemon needed to catch.
 ## Current Capabilities:
 
 - Keep track of Pokemon you have caught and what Pokemon you need to catch
+- Currently only displays Kanto Pokemon
 - Displays charts of how many Pokemon you have caught and of what type you've caught most
 - Click on Pokemon pictures to see a detailed view of their stats and supereffective types
 
